@@ -1,4 +1,4 @@
-const API = "https://Mozsell.v1.vercel.app";
+const API = "https://mozsell-v1.vercel.app";
 
 // carregar produtos
 async function loadProducts() {
