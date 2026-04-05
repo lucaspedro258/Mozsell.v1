@@ -1,4 +1,4 @@
-const API = "http://localhost:5000";
+const API = "https://TEU-BACKEND.onrender.com";
 
 // carregar produtos
 async function loadProducts() {
@@ -25,7 +25,7 @@ document.querySelector("#registerForm")?.addEventListener("submit", async (e) =>
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch("https://TEU-BACKEND.onrender.com/api/auth/register", {
+  const res = await fetch(API + "/api/auth/register", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -50,23 +50,29 @@ document.querySelector("#sellForm")?.addEventListener("submit", async (e) => {
 
   const token = localStorage.getItem("token");
 
- if (!token) {
+  if (!token) {
     alert("Precisa fazer login");
     return;
   }
 
- const API = "https://teu-backend.onrender.com"; 
- 
- {
+  const title = document.getElementById("title").value;
+  const price = document.getElementById("price").value;
+  const description = document.getElementById("description").value;
+
+  await fetch(API + "/api/products", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": token
+    },
     body: JSON.stringify({
-      title: title.value,
-      price: price.value,
-      description: description.value
+      title,
+      price,
+      description
     })
-  };
+  });
 
   alert("Produto publicado!");
-
   window.location.href = "index.html";
 });
 function togglePassword() {
@@ -89,7 +95,7 @@ document.querySelector("#loginForm")?.addEventListener("submit", async (e) => {
   errorMsg.textContent = "";
 
   try {
-    const res = await fetch("http://localhost:5000/api/auth/login", {
+    await fetch(API + "/api/auth/login", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ email, password })
