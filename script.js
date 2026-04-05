@@ -1,4 +1,4 @@
-const API = "https://TEU-BACKEND.onrender.com";
+const API = "https://Mozsell.v1.vercel.app";
 
 // carregar produtos
 async function loadProducts() {
